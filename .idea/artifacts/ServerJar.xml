@@ -2,7 +2,9 @@
   <artifact type="jar" name="ServerJar">
     <output-path>$PROJECT_DIR$/out/artifacts/ServerJar</output-path>
     <root id="archive" name="ServerJar.jar">
-      <element id="module-output" name="DACSC_Step2" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
+      </element>
       <element id="dir-copy" path="$PROJECT_DIR$/src/main/resources" />
     </root>
   </artifact>
