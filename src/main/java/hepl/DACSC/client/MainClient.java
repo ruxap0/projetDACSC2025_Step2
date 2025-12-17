@@ -1,6 +1,6 @@
-package hepl.DACSC.client.views;
+package hepl.DACSC.client;
 
-import hepl.DACSC.client.ClientController;
+import hepl.DACSC.client.views.LoginInterface;
 
 import javax.swing.*;
 
