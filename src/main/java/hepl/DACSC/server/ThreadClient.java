@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.sql.SQLException;
+
 import hepl.DACSC.server.Logger;
 
 public abstract class ThreadClient extends Thread {
@@ -47,8 +49,8 @@ public abstract class ThreadClient extends Thread {
                 while(true)
                 {
                     Requete requete = (Requete) ois.readObject();
-                    //Reponse reponse = protocole.processRequest(requete, socket);
-                    //oos.writeObject(reponse);
+                    Reponse reponse = protocole.processRequest(requete, socket);
+                    oos.writeObject(reponse);
                 }
             }
             catch (IOException ex) // FinConnexionException ex
@@ -56,6 +58,8 @@ public abstract class ThreadClient extends Thread {
                 logger.Trace("Fin de connexion demandée par le client " + this.getName());
                 //if(oos != null && ex.getReponse() != null)
                 //    oos.writeObject(ex.getReponse());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         }
         //catch (IOException ex) { logger.Trace("Erreur IO");}
