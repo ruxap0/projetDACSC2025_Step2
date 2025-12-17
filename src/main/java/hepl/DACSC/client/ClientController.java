@@ -33,9 +33,9 @@ public class ClientController implements ActionListener {
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
 
-    public ClientController(ClientInterface clientView) {
-        this.clientView = clientView;
-        this.clientView.addActionListener(this);
+    public ClientController(LoginInterface loginView) {
+        this.loginView = loginView;
+        this.loginView.addActionListeners(this);
     }
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {

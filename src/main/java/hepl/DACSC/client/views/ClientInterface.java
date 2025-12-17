@@ -135,14 +135,6 @@ public class ClientInterface extends JFrame {
         this.consultations = consultations;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            ClientInterface clientInterface = new ClientInterface("Dr. Dupont");
-            clientInterface.setVisible(true);
-            ClientController controller = new ClientController(clientInterface);
-        });
-    }
-
     public void showMessage(String erreur, String message) {
         JOptionPane.showMessageDialog(this, message, erreur, JOptionPane.INFORMATION_MESSAGE);
     }
