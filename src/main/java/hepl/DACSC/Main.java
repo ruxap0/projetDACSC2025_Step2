@@ -12,7 +12,7 @@ public class Main {
     {
         System.out.println("Hello, World!");
         DBConnexion con;
-        ConfigServer configServer = new ConfigServer("src/main/resources/serversetup.properties");
+        ConfigServer configServer = new ConfigServer();
         con = new DBConnexion(
                 configServer.getDbLink(),
                 configServer.getDbUser(),

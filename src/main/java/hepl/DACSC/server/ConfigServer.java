@@ -20,7 +20,7 @@ public class ConfigServer {
     public ConfigServer() throws IOException {
         properties = new Properties();
         try (InputStream input = getClass().getClassLoader()
-                .getResourceAsStream("config.properties")) {
+                .getResourceAsStream("serversetup.properties")) {
             if (input == null) {
                 throw new IOException("Fichier config.properties introuvable");
             }
