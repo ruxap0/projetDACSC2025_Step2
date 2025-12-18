@@ -22,6 +22,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class ClientController implements ActionListener {
     private Socket socket;
@@ -133,8 +135,12 @@ public class ClientController implements ActionListener {
 
     private void gestionNewConsultation()
     {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        formatter = formatter.withLocale(Locale.FRANCE );
+        LocalDate date = LocalDate.parse(addView.getDateConsultation(), formatter);
+
         AddConsultationRequete acr = new AddConsultationRequete(
-                LocalDate.parse(addView.getDateConsultation()),
+                date,
                 LocalTime.parse(addView.getHeureConsultation()),
                 addView.getDureeConsultation(),
                 addView.getNbConsultation());
