@@ -1,6 +1,8 @@
 package hepl.DACSC.protocol.requetes;
 
-public class AddPatientRequete {
+import hepl.DACSC.protocol.Requete;
+
+public class AddPatientRequete implements Requete {
     private String firstName;
     private String lastName;
 

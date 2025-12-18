@@ -6,6 +6,7 @@ import hepl.DACSC.model.dao.DoctorDAO;
 import hepl.DACSC.model.dao.PatientDAO;
 import hepl.DACSC.model.entity.Patient;
 import hepl.DACSC.model.viewmodel.ConsultationSearchVM;
+import hepl.DACSC.model.viewmodel.DoctorSearchVM;
 import hepl.DACSC.model.viewmodel.PatientSearchVM;
 import hepl.DACSC.protocol.reponses.LoginReponse;
 import hepl.DACSC.protocol.requetes.AddConsultationRequete;
@@ -38,7 +39,11 @@ public class CAP implements Protocole{
     public Reponse processRequest(Requete requete, Socket socket) throws IOException, SQLException {
         if (requete instanceof LoginRequete)
         {
-            return new LoginReponse(true);
+            DoctorSearchVM dsvm = new DoctorSearchVM();
+            dsvm.setLogin(((LoginRequete) requete).getLogin());
+            dsvm.setPassword(((LoginRequete) requete).getPassword());
+
+            doctorDAO.isDoctorPresent(dsvm);
         }
         else if (requete instanceof AddPatientRequete)
         {
