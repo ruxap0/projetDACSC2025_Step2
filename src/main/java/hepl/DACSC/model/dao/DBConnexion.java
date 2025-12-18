@@ -7,7 +7,7 @@ import java.util.logging.*;
 public class DBConnexion {
     private static Connection instance = null;
 
-    public Connection getInstance() {
+    public static Connection getInstance() {
         return instance;
     }
 
