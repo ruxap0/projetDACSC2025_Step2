@@ -13,13 +13,13 @@ public class Main {
         System.out.println("Hello, World!");
         DBConnexion con;
         ConfigServer configServer = new ConfigServer();
-        con = new DBConnexion(
+        new DBConnexion(
                 configServer.getDbLink(),
                 configServer.getDbUser(),
                 configServer.getDbPassword(),
                 configServer.getDbDriver()
         );
-        CAP protocol = new CAP(con);
+        CAP protocol = new CAP(null);
         Logger logger = new Logger() {
             @Override
             public void Trace(String message)
