@@ -21,8 +21,8 @@ public class DoctorDAO {
         ResultSet rs;
 
         StringBuilder sql = new StringBuilder("SELECT * FROM doctors WHERE 1=1");
-        sql.append(" AND login IS LIKE '").append(doctor.getLogin()).append("'");
-        sql.append(" AND password IS LIKE '").append(doctor.getPassword()).append("'");
+        sql.append(" AND login = '").append(doctor.getLogin()).append("'");
+        sql.append(" AND password = '").append(doctor.getPassword()).append("'");
 
         PreparedStatement ps = connection.getInstance().prepareStatement(sql.toString());
         var res = ps.executeQuery();
