@@ -1,6 +1,8 @@
 package hepl.DACSC.protocol.reponses;
 
-public class AddPatientReponse {
+import hepl.DACSC.protocol.Reponse;
+
+public class AddPatientReponse implements Reponse {
     private Boolean isSuccess;
     private Integer idPatient;
 

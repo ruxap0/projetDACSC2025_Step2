@@ -8,6 +8,7 @@ import hepl.DACSC.model.entity.Patient;
 import hepl.DACSC.model.viewmodel.ConsultationSearchVM;
 import hepl.DACSC.model.viewmodel.DoctorSearchVM;
 import hepl.DACSC.model.viewmodel.PatientSearchVM;
+import hepl.DACSC.protocol.reponses.AddPatientReponse;
 import hepl.DACSC.protocol.reponses.LoginReponse;
 import hepl.DACSC.protocol.requetes.AddConsultationRequete;
 import hepl.DACSC.protocol.requetes.AddPatientRequete;
@@ -43,7 +44,7 @@ public class CAP implements Protocole{
             dsvm.setLogin(((LoginRequete) requete).getLogin());
             dsvm.setPassword(((LoginRequete) requete).getPassword());
 
-            doctorDAO.isDoctorPresent(dsvm);
+            return new LoginReponse(doctorDAO.isDoctorPresent(dsvm));
         }
         else if (requete instanceof AddPatientRequete)
         {
@@ -51,7 +52,9 @@ public class CAP implements Protocole{
             psvm.setFirstName(((AddPatientRequete) requete).getFirstName());
             psvm.setLastName(((AddPatientRequete) requete).getLastName());
 
-            patientDAO.addPatient(psvm);
+            int id = patientDAO.addPatient(psvm);
+
+            return new AddPatientReponse(true, id);
 
         } else if (requete instanceof AddConsultationRequete) {
             //ConsultationSearchVM csvm = new ConsultationSearchVM();
