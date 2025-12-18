@@ -35,8 +35,7 @@ public class ConsultationDAO {
                 ps.setInt(1, idConsul);
                 ps.setDate(2, Date.valueOf(consultation.getDate()));
                 ps.setTime(3, Time.valueOf(consultation.getTime()));
-                ps.setInt(4, consultation.getDuree());
-                ps.setInt(5, 1); // Changer la logique plus tard (pour pouvoir faire les autres requetes)
+                ps.setInt(4, 1); // Changer la logique plus tard (pour pouvoir faire les autres requetes)
 
                 nbInserted += ps.executeUpdate();
             }
