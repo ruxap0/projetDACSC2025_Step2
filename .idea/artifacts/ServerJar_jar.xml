@@ -4,6 +4,7 @@
     <root id="archive" name="ServerJar.jar">
       <element id="module-output" name="DACSC_Step2" />
       <element id="dir-copy" path="$PROJECT_DIR$/src/main/resources" />
+      <element id="library" level="project" name="mysql-connector-j-8.2.0" />
     </root>
   </artifact>
 </component>
