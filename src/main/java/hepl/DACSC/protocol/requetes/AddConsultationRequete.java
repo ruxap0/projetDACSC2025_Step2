@@ -6,12 +6,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class AddConsultationRequete implements Requete {
+    private int doctorID;
     private LocalDate dateConsultation;
     private LocalTime heureConsultation;
     private Integer dureeConsultation;
     private Integer nbConsultation;
 
-    public AddConsultationRequete(LocalDate dateConsultation, LocalTime heureConsultation, Integer dureeConsultation, Integer nbConsultation) {
+    public AddConsultationRequete(int idDoctor, LocalDate dateConsultation, LocalTime heureConsultation, Integer dureeConsultation, Integer nbConsultation) {
+        this.doctorID = idDoctor;
         this.dateConsultation = dateConsultation;
         this.heureConsultation = heureConsultation;
         this.dureeConsultation = dureeConsultation;
@@ -32,6 +34,10 @@ public class AddConsultationRequete implements Requete {
 
     public Integer getNbConsultation() {
         return nbConsultation;
+    }
+
+    public Integer getDoctorID() {
+        return doctorID;
     }
 }
 

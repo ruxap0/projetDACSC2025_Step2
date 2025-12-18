@@ -16,4 +16,8 @@ public class LoginReponse implements Reponse {
     public boolean isSuccess() {
         return success;
     }
+
+    public int getDoctorID() {
+        return doctorID;
+    }
 }

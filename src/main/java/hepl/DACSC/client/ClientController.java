@@ -121,6 +121,7 @@ public class ClientController implements ActionListener {
                     clientView = new ClientInterface(requete.getLogin());
                     clientView.setVisible(true);
                     clientView.addActionListener(this);
+                    clientView.setIdDoctor(reponse.getDoctorID());
                 }
 
                 requete = null;
@@ -144,6 +145,7 @@ public class ClientController implements ActionListener {
         LocalTime hour = LocalTime.parse(addView.getHeureConsultation(), hourFormatter);
 
         AddConsultationRequete acr = new AddConsultationRequete(
+                clientView.getIdDoctor(),
                 date,
                 hour,
                 addView.getDureeConsultation(),
