@@ -10,13 +10,49 @@ public class ConsultationSearchVM {
     private LocalTime time;
     private int duree;
     private Patient patient;
-
-    // Seulement utilisé dans un cas spécifique
     private int nbCons;
 
-    public ConsultationSearchVM(){}
+    public ConsultationSearchVM() {}
 
+    // Getters
+    public LocalDate getDate() {
+        return date;
+    }
 
+    public LocalTime getTime() {
+        return time;
+    }
 
+    public int getDuree() {
+        return duree;
+    }
 
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public int getNbCons() {
+        return nbCons;
+    }
+
+    // Setters
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    public void setDuree(int duree) {
+        this.duree = duree;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public void setNbCons(int nbCons) {
+        this.nbCons = nbCons;
+    }
 }
