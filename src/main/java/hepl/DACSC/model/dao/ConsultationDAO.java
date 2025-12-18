@@ -27,7 +27,7 @@ public class ConsultationDAO {
             throw new SQLException("Erreur : Les consultations dépasseraient 17h00. Heure de fin prévue : " + endTime);
         }
 
-        String sql = "INSERT INTO consultations (id, doctor_id, date, heure) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO consultations (id, doctor_id, date, hour) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement ps = connection.getInstance().prepareStatement(sql)) {
             int nbInserted = 0;
