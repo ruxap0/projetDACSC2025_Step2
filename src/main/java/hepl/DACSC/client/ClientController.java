@@ -20,6 +20,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -139,9 +140,12 @@ public class ClientController implements ActionListener {
         formatter = formatter.withLocale(Locale.FRANCE );
         LocalDate date = LocalDate.parse(addView.getDateConsultation(), formatter);
 
+        DateTimeFormatter hourFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime hour = LocalTime.parse(addView.getHeureConsultation(), hourFormatter);
+
         AddConsultationRequete acr = new AddConsultationRequete(
                 date,
-                LocalTime.parse(addView.getHeureConsultation()),
+                hour,
                 addView.getDureeConsultation(),
                 addView.getNbConsultation());
 
