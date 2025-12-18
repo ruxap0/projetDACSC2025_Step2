@@ -48,9 +48,10 @@ public class ClientController implements ActionListener {
                 if (addView == null)
                 {
                     addView = new AddInterface();
-                    addView.setVisible(true);
                     addView.addActionListeners(this);
                 }
+                addView.setVisible(true);
+
                 break;
             case "Ajouter Consultation":
                 gestionNewConsultation();
@@ -87,8 +88,7 @@ public class ClientController implements ActionListener {
                 }
                 if (addView != null)
                 {
-                    addView.dispose();
-                    addView = null;
+                    addView.setVisible(false);
                 }
                 break;
         }
@@ -173,7 +173,7 @@ public class ClientController implements ActionListener {
             if(reponse.IsSuccess())
             {
                 addView.showMessage("Id du client créé : " + reponse.getIdPatient());
-                addView.dispose();
+                addView.setVisible(false);
             }
             else
             {

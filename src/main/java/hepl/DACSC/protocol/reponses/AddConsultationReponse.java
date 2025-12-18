@@ -1,6 +1,8 @@
 package hepl.DACSC.protocol.reponses;
 
-public class AddConsultationReponse {
+import hepl.DACSC.protocol.Reponse;
+
+public class AddConsultationReponse implements Reponse {
     private boolean success;
 
     public AddConsultationReponse(boolean success) {

@@ -1,4 +1,6 @@
 package hepl.DACSC.protocol.reponses;
 
-public class DeleteConsultationReponse {
+import hepl.DACSC.protocol.Reponse;
+
+public class DeleteConsultationReponse implements Reponse {
 }

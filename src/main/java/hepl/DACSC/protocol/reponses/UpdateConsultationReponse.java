@@ -1,4 +1,6 @@
 package hepl.DACSC.protocol.reponses;
 
-public class UpdateConsultationReponse {
+import hepl.DACSC.protocol.Reponse;
+
+public class UpdateConsultationReponse implements Reponse {
 }

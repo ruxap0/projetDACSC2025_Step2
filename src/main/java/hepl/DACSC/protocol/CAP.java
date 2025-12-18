@@ -8,6 +8,7 @@ import hepl.DACSC.model.entity.Patient;
 import hepl.DACSC.model.viewmodel.ConsultationSearchVM;
 import hepl.DACSC.model.viewmodel.DoctorSearchVM;
 import hepl.DACSC.model.viewmodel.PatientSearchVM;
+import hepl.DACSC.protocol.reponses.AddConsultationReponse;
 import hepl.DACSC.protocol.reponses.AddPatientReponse;
 import hepl.DACSC.protocol.reponses.LoginReponse;
 import hepl.DACSC.protocol.requetes.AddConsultationRequete;
@@ -57,8 +58,13 @@ public class CAP implements Protocole{
             return new AddPatientReponse(true, id);
 
         } else if (requete instanceof AddConsultationRequete) {
-            //ConsultationSearchVM csvm = new ConsultationSearchVM();
+            ConsultationSearchVM csvm = new ConsultationSearchVM();
+            csvm.setDate(((AddConsultationRequete) requete).getDateConsultation());
+            csvm.setTime(((AddConsultationRequete) requete).getHeureConsultation());
+            csvm.setDuree(((AddConsultationRequete) requete).getDureeConsultation());
+            csvm.setNbCons(((AddConsultationRequete) requete).getNbConsultation());
 
+            return new AddConsultationReponse(consultationDAO.addConsultation(csvm));
         }
 
         return null;

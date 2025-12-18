@@ -1,4 +1,6 @@
 package hepl.DACSC.protocol.reponses;
 
-public class LogoutReponse {
+import hepl.DACSC.protocol.Reponse;
+
+public class LogoutReponse implements Reponse {
 }
