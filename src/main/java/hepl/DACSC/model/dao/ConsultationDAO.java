@@ -3,10 +3,7 @@ package hepl.DACSC.model.dao;
 import hepl.DACSC.model.entity.Consultation;
 import hepl.DACSC.model.viewmodel.ConsultationSearchVM;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Time;
+import java.sql.*;
 import java.time.LocalTime;
 
 public class ConsultationDAO {
@@ -34,10 +31,12 @@ public class ConsultationDAO {
             int nbToInsert = consultation.getNbCons();
 
             for (int i = 0; i < nbToInsert; i++) {
-                ps.setDate(1, Date.valueOf(consultation.getDate()));
-                ps.setTime(2, Time.valueOf(consultation.getTime()));
-                ps.setInt(3, consultation.getDuree());
-                ps.setInt(4, 1); // Changer la logique plus tard (pour pouvoir faire les autres requetes)
+                int idConsul = getNextId();
+                ps.setInt(1, idConsul);
+                ps.setDate(2, Date.valueOf(consultation.getDate()));
+                ps.setTime(3, Time.valueOf(consultation.getTime()));
+                ps.setInt(4, consultation.getDuree());
+                ps.setInt(5, 1); // Changer la logique plus tard (pour pouvoir faire les autres requetes)
 
                 nbInserted += ps.executeUpdate();
             }
@@ -50,5 +49,16 @@ public class ConsultationDAO {
             e.printStackTrace();
             throw new SQLException("Erreur lors de l'ajout de la consultation : " + e.getMessage());
         }
+    }
+
+    public int getNextId() throws SQLException {
+        ResultSet rs = null;
+        PreparedStatement ps1 = connection.getInstance().prepareStatement("SELECT COALESCE(MAX(id),0) FROM doctors");
+        rs = ps1.executeQuery();
+        rs.next();
+
+        int idDoc = rs.getInt(1);
+        idDoc++;
+        return idDoc;
     }
 }
