@@ -1,14 +1,7 @@
 package hepl.DACSC.model.dao;
 
-import hepl.DACSC.model.entity.Doctor;
 import hepl.DACSC.model.viewmodel.DoctorSearchVM;
-
-import java.io.InputStream;
-import java.io.Reader;
-import java.math.BigDecimal;
-import java.net.URL;
 import java.sql.*;
-import java.util.Calendar;
 
 public class DoctorDAO {
     private DBConnexion connection;
@@ -18,15 +11,28 @@ public class DoctorDAO {
     }
 
     public boolean isDoctorPresent(DoctorSearchVM doctor) throws SQLException {
-        ResultSet rs;
+        String sql = "SELECT COUNT(*) FROM doctors WHERE login = ? AND password = ?";
 
-        StringBuilder sql = new StringBuilder("SELECT * FROM doctors WHERE 1=1");
-        sql.append(" AND login = '").append(doctor.getLogin()).append("'");
-        sql.append(" AND password = '").append(doctor.getPassword()).append("'");
+        try (PreparedStatement ps = connection.getInstance().prepareStatement(sql)) {
+            ps.setString(1, doctor.getLogin());
+            ps.setString(2, doctor.getPassword());
 
-        PreparedStatement ps = connection.getInstance().prepareStatement(sql.toString());
-        var res = ps.executeQuery();
+            System.out.println("Exécution: " + sql);
+            System.out.println("Login: " + doctor.getLogin());
 
-        return res.getBoolean(0);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                System.out.println("Nombre de doctors trouvés: " + count);
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            System.err.println("Erreur SQL:");
+            e.printStackTrace();
+            throw e;
+        }
+
+        return false;
     }
 }
