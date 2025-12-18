@@ -31,8 +31,7 @@ public class ConsultationDAO {
             int nbToInsert = consultation.getNbCons();
 
             for (int i = 0; i < nbToInsert; i++) {
-                int idConsul = getNextId();
-                ps.setInt(1, idConsul);
+                ps.setInt(1, getNextId());
                 ps.setInt(2, consultation.getIdDoctor());
                 ps.setDate(3, Date.valueOf(consultation.getDate()));
                 ps.setTime(4, Time.valueOf(consultation.getTime()));
@@ -52,12 +51,11 @@ public class ConsultationDAO {
 
     public int getNextId() throws SQLException {
         ResultSet rs = null;
-        PreparedStatement ps1 = connection.getInstance().prepareStatement("SELECT COALESCE(MAX(id),0) FROM doctors");
+        PreparedStatement ps1 = connection.getInstance().prepareStatement("SELECT COALESCE(MAX(id),0) FROM consultations");
         rs = ps1.executeQuery();
         rs.next();
 
-        int idDoc = rs.getInt(1);
-        idDoc++;
-        return idDoc;
+        int idCons = rs.getInt(1);
+        return ++idCons;
     }
 }
