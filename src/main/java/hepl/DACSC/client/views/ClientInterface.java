@@ -20,6 +20,8 @@ public class ClientInterface extends JFrame {
     private String currentDoctorId;
     //private JButton btnDeleteConsultation;
 
+    private int idDoctor;
+
     private ArrayList<Consultation> consultations;
 
     public ClientInterface(String doctorName) {
@@ -133,6 +135,14 @@ public class ClientInterface extends JFrame {
 
     public void setConsultations(ArrayList<Consultation> consultations) {
         this.consultations = consultations;
+    }
+
+    public int getIdDoctor() {
+        return idDoctor;
+    }
+
+    public void setIdDoctor(int idDoctor) {
+        this.idDoctor = idDoctor;
     }
 
     public void showMessage(String erreur, String message) {

@@ -45,7 +45,12 @@ public class CAP implements Protocole{
             dsvm.setLogin(((LoginRequete) requete).getLogin());
             dsvm.setPassword(((LoginRequete) requete).getPassword());
 
-            return new LoginReponse(doctorDAO.isDoctorPresent(dsvm));
+            int idDoc = doctorDAO.isDoctorPresent(dsvm);
+
+            if(idDoc == -1)
+                return new LoginReponse(false, -1);
+            else
+                return new LoginReponse(true, idDoc);
         }
         else if (requete instanceof AddPatientRequete)
         {

@@ -10,8 +10,8 @@ public class DoctorDAO {
         this.connection = connection;
     }
 
-    public boolean isDoctorPresent(DoctorSearchVM doctor) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM doctors WHERE login = ? AND password = ?";
+    public int isDoctorPresent(DoctorSearchVM doctor) throws SQLException {
+        String sql = "SELECT id FROM doctors WHERE login = ? AND password = ?";
 
         try (PreparedStatement ps = connection.getInstance().prepareStatement(sql)) {
             ps.setString(1, doctor.getLogin());
@@ -23,9 +23,7 @@ public class DoctorDAO {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                int count = rs.getInt(1);
-                System.out.println("Nombre de doctors trouvés: " + count);
-                return count > 0;
+                return rs.getInt(1);
             }
         } catch (SQLException e) {
             System.err.println("Erreur SQL:");
@@ -33,6 +31,6 @@ public class DoctorDAO {
             throw e;
         }
 
-        return false;
+        return -1;
     }
 }

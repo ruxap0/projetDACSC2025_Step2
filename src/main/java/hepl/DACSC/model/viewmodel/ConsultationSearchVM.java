@@ -11,6 +11,7 @@ public class ConsultationSearchVM {
     private int duree;
     private Patient patient;
     private int nbCons;
+    private int idDoctor;
 
     public ConsultationSearchVM() {}
 
@@ -54,5 +55,15 @@ public class ConsultationSearchVM {
 
     public void setNbCons(int nbCons) {
         this.nbCons = nbCons;
+    }
+
+    public int getIdDoctor()
+    {
+        return idDoctor;
+    }
+
+    public void setIdDoctor(int idDoctor)
+    {
+        this.idDoctor = idDoctor;
     }
 }

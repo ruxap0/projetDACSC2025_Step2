@@ -33,9 +33,9 @@ public class ConsultationDAO {
             for (int i = 0; i < nbToInsert; i++) {
                 int idConsul = getNextId();
                 ps.setInt(1, idConsul);
-                ps.setDate(2, Date.valueOf(consultation.getDate()));
-                ps.setTime(3, Time.valueOf(consultation.getTime()));
-                ps.setInt(4, 1); // Changer la logique plus tard (pour pouvoir faire les autres requetes)
+                ps.setInt(2, consultation.getIdDoctor());
+                ps.setDate(3, Date.valueOf(consultation.getDate()));
+                ps.setTime(4, Time.valueOf(consultation.getTime()));
 
                 nbInserted += ps.executeUpdate();
             }
