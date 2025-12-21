@@ -41,6 +41,14 @@ public class Doctor implements Entity{
         this.firstName = firstName;
     }
 
+    public void setSpecialtyId(Integer specialtyId) {
+        this.specialtyId = specialtyId;
+    }
+
+    public int getSpecialtyId() {
+        return specialtyId;
+    }
+
     @Override
     public String toString() {
         return "Doctor{" +

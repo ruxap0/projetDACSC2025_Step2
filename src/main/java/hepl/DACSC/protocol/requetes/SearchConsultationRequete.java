@@ -1,0 +1,26 @@
+package hepl.DACSC.protocol.requetes;
+
+import hepl.DACSC.model.entity.Patient;
+import hepl.DACSC.protocol.Requete;
+
+import java.time.LocalDate;
+
+public class SearchConsultationRequete implements Requete {
+    private int idDoctor;
+    private Patient patient;
+    private LocalDate dateConsultation;
+
+    public SearchConsultationRequete(int idDoctor, Patient patient, LocalDate dateConsultation) {
+        this.idDoctor = idDoctor;
+        this.patient = patient;
+        this.dateConsultation = dateConsultation;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public LocalDate getDateConsultation() {
+        return dateConsultation;
+    }
+}

@@ -1,13 +1,17 @@
 package hepl.DACSC.model.dao;
 
 import hepl.DACSC.model.entity.Consultation;
+import hepl.DACSC.model.entity.Doctor;
+import hepl.DACSC.model.entity.Patient;
 import hepl.DACSC.model.viewmodel.ConsultationSearchVM;
 
 import java.sql.*;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class ConsultationDAO {
     private DBConnexion connection;
+    private ArrayList<Consultation> consultations;
 
     public ConsultationDAO(DBConnexion connection) {
         this.connection = connection;
@@ -57,5 +61,71 @@ public class ConsultationDAO {
 
         int idCons = rs.getInt(1);
         return ++idCons;
+    }
+
+    public ArrayList<Consultation> getConsultations(ConsultationSearchVM csvm) throws SQLException {
+        StringBuilder sql = new StringBuilder(
+                "SELECT c.*, " +
+                        "p.last_name as patient_last_name, p.first_name as patient_first_name, " +
+                        "d.last_name as doctor_last_name, d.first_name as doctor_first_name, d.specialty_id " +
+                        "FROM consultations c " +
+                        "INNER JOIN patients p ON c.patient_id = p.id " +
+                        "INNER JOIN doctors d ON c.doctor_id = d.id " +
+                        "WHERE 1=1"
+        );
+
+        ArrayList<Object> params = new ArrayList<>();
+
+        if(csvm.getPatient() != null) {
+            sql.append(" AND c.patient_id = ?");
+            params.add(csvm.getPatient().getId());
+        }
+
+        if(csvm.getDate() != null) {
+            sql.append(" AND c.date > ?");
+            params.add(csvm.getDate());
+        }
+
+        ArrayList<Consultation> consultations = new ArrayList<>();
+
+        try(PreparedStatement ps = connection.getInstance().prepareStatement(sql.toString())) {
+            // Binding des paramètres
+            for(int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
+            }
+
+            try(ResultSet rs = ps.executeQuery()) {
+                while(rs.next()) {
+                    // Créer le Patient
+                    Patient patient = new Patient(
+                            rs.getInt("patient_id"),
+                            rs.getString("patient_last_name"),
+                            rs.getString("patient_first_name")
+                    );
+
+                    // Créer le Doctor
+                    Doctor doctor = new Doctor(
+                            rs.getInt("doctor_id"),
+                            rs.getString("doctor_last_name"),
+                            rs.getString("doctor_first_name")
+                    );
+                    doctor.setSpecialtyId(rs.getInt("specialty_id"));
+
+                    // Créer la Consultation
+                    Consultation cons = new Consultation(
+                            rs.getInt("id"),
+                            rs.getDate("date").toLocalDate(),
+                            rs.getTime("hour").toLocalTime(),
+                            patient,
+                            rs.getString("reason"),
+                            doctor
+                    );
+
+                    consultations.add(cons);
+                }
+            }
+        }
+
+        return consultations;
     }
 }

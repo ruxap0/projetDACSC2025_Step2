@@ -11,9 +11,11 @@ import hepl.DACSC.model.viewmodel.PatientSearchVM;
 import hepl.DACSC.protocol.reponses.AddConsultationReponse;
 import hepl.DACSC.protocol.reponses.AddPatientReponse;
 import hepl.DACSC.protocol.reponses.LoginReponse;
+import hepl.DACSC.protocol.reponses.SearchConsultationReponse;
 import hepl.DACSC.protocol.requetes.AddConsultationRequete;
 import hepl.DACSC.protocol.requetes.AddPatientRequete;
 import hepl.DACSC.protocol.requetes.LoginRequete;
+import hepl.DACSC.protocol.requetes.SearchConsultationRequete;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -71,6 +73,13 @@ public class CAP implements Protocole{
             csvm.setNbCons(((AddConsultationRequete) requete).getNbConsultation());
 
             return new AddConsultationReponse(consultationDAO.addConsultation(csvm));
+        }
+        else if (requete instanceof SearchConsultationRequete) {
+            ConsultationSearchVM csvm = new ConsultationSearchVM();
+            csvm.setPatient(((SearchConsultationRequete) requete).getPatient());
+            csvm.setDate(((SearchConsultationRequete) requete).getDateConsultation());
+
+            return new SearchConsultationReponse(consultationDAO.getConsultations(csvm));
         }
 
         return null;

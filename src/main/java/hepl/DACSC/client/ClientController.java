@@ -10,9 +10,11 @@ import hepl.DACSC.protocol.Requete;
 import hepl.DACSC.protocol.reponses.AddConsultationReponse;
 import hepl.DACSC.protocol.reponses.AddPatientReponse;
 import hepl.DACSC.protocol.reponses.LoginReponse;
+import hepl.DACSC.protocol.reponses.SearchConsultationReponse;
 import hepl.DACSC.protocol.requetes.AddConsultationRequete;
 import hepl.DACSC.protocol.requetes.AddPatientRequete;
 import hepl.DACSC.protocol.requetes.LoginRequete;
+import hepl.DACSC.protocol.requetes.SearchConsultationRequete;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -58,15 +60,26 @@ public class ClientController implements ActionListener {
                 break;
             case "Ajouter Consultation":
                 gestionNewConsultation();
+            case "Rafraichir":
+                SearchConsultationRequete reqCons = new SearchConsultationRequete(clientView.getIdDoctor(), null, null);
+                try {
+                    oos.writeObject(reqCons);
+                    oos.flush();
+
+                    SearchConsultationReponse repCons = (SearchConsultationReponse) ois.readObject();
+
+                    clientView.setConsultations(repCons.getConsultations());
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                } catch (ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
                 break;
             case "Ajouter Patient":
                 gestionNewPatient();
                 break;
             case "Mettre à jour la consultation":
                 // Récupérer la consultation sélectionnée et ouvrir une vue de mise à jour
-                Consultation consultation = new Consultation();
-
-
                 break;
             case "Logout":
                 if(isLoggedIn)
