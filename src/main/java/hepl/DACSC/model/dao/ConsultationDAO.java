@@ -77,8 +77,8 @@ public class ConsultationDAO {
         ArrayList<Object> params = new ArrayList<>();
 
         if(csvm.getPatient() != null) {
-            sql.append(" AND c.patient_id = ?");
-            params.add(csvm.getPatient().getId());
+            sql.append(" AND p.last_name = ?");
+            params.add(csvm.getPatient().getLastName());
         }
 
         if(csvm.getDate() != null) {

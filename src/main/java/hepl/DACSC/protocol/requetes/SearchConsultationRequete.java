@@ -7,16 +7,32 @@ import java.time.LocalDate;
 
 public class SearchConsultationRequete implements Requete {
     private int idDoctor;
-    private Patient patient;
+    private String patient;
     private LocalDate dateConsultation;
 
-    public SearchConsultationRequete(int idDoctor, Patient patient, LocalDate dateConsultation) {
+    public SearchConsultationRequete(int idDoctor, String patient, LocalDate dateConsultation) {
         this.idDoctor = idDoctor;
         this.patient = patient;
         this.dateConsultation = dateConsultation;
     }
 
-    public Patient getPatient() {
+    public SearchConsultationRequete() {}
+
+    public void setIdDoctor(int idDoctor) {
+        this.idDoctor = idDoctor;
+    }
+
+    public void setPatientName(String name)
+    {
+        this.patient = name;
+    }
+
+    public void setDateConsultation(LocalDate dateConsultation)
+    {
+        this.dateConsultation = dateConsultation;
+    }
+
+    public String getPatient() {
         return patient;
     }
 

@@ -26,6 +26,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
 public class ClientController implements ActionListener {
@@ -61,19 +62,7 @@ public class ClientController implements ActionListener {
             case "Ajouter Consultation":
                 gestionNewConsultation();
             case "Rafraichir":
-                SearchConsultationRequete reqCons = new SearchConsultationRequete(clientView.getIdDoctor(), null, null);
-                try {
-                    oos.writeObject(reqCons);
-                    oos.flush();
-
-                    SearchConsultationReponse repCons = (SearchConsultationReponse) ois.readObject();
-
-                    clientView.setConsultations(repCons.getConsultations());
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                } catch (ClassNotFoundException ex) {
-                    throw new RuntimeException(ex);
-                }
+                reloadScreen();
                 break;
             case "Ajouter Patient":
                 gestionNewPatient();
@@ -107,6 +96,49 @@ public class ClientController implements ActionListener {
                     addView.setVisible(false);
                 }
                 break;
+        }
+    }
+
+    private void reloadScreen() {
+        String patientName = clientView.getFilterPatient();
+        LocalDate date = null;
+
+        boolean hasPatientFilter = patientName != null && !patientName.isEmpty();
+        boolean hasDateFilter = false;
+        String dateString = clientView.getFilterDate();
+
+        if (dateString != null && !dateString.isEmpty()) {
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                formatter = formatter.withLocale(Locale.FRANCE);
+                date = LocalDate.parse(dateString, formatter);
+                hasDateFilter = true;
+            } catch (DateTimeParseException e) {
+                // Date invalide
+                clientView.showMessage("Erreur", "Format de date invalide. Utilisez le format YYYY-MM-DD");
+                return; // ou gérer autrement selon ton besoin
+            }
+        }
+
+        SearchConsultationRequete reqCons= new SearchConsultationRequete();
+        reqCons.setIdDoctor(clientView.getIdDoctor());
+
+        if(hasPatientFilter)
+            reqCons.setPatientName(patientName);
+        if(hasDateFilter)
+            reqCons.setDateConsultation(date);
+
+        try {
+            oos.writeObject(reqCons);
+            oos.flush();
+
+            SearchConsultationReponse repCons = (SearchConsultationReponse) ois.readObject();
+
+            clientView.setConsultations(repCons.getConsultations());
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        } catch (ClassNotFoundException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
