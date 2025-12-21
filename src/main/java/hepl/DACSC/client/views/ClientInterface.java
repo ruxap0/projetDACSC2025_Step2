@@ -145,7 +145,7 @@ public class ClientInterface extends JFrame {
         actionPanel.setBorder(BorderFactory.createTitledBorder("Actions"));
 
         btnNew = new JButton("Add new");
-        btnRefresh = new JButton("Rafraîchir");
+        btnRefresh = new JButton("Rafraichir");
         btnUpdateConsultation = new JButton("Mettre à jour la consultation");
 
         actionPanel.add(btnNew);
