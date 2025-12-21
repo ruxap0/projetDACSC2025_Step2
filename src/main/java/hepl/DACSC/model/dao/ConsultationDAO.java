@@ -66,66 +66,46 @@ public class ConsultationDAO {
     public ArrayList<Consultation> getConsultations(ConsultationSearchVM csvm) throws SQLException {
         StringBuilder sql = new StringBuilder(
                 "SELECT c.*, " +
-                        "p.last_name as patient_last_name, p.first_name as patient_first_name, " +
-                        "d.last_name as doctor_last_name, d.first_name as doctor_first_name, d.specialty_id " +
+                        "p.last_name as patient_lastname, p.first_name as patient_firstname, " +
+                        "d.last_name as doctor_lastname, d.first_name as doctor_firstname, d.specialty_id " +
                         "FROM consultations c " +
                         "INNER JOIN patients p ON c.patient_id = p.id " +
-                        "INNER JOIN doctors d ON c.doctor_id = d.id " +
-                        "WHERE 1=1"
+                        "INNER JOIN doctors d ON c.doctor_id = d.id "
         );
-
-        ArrayList<Object> params = new ArrayList<>();
-
-        if(csvm.getPatient() != null) {
-            sql.append(" AND p.last_name = ?");
-            params.add(csvm.getPatient().getLastName());
-            System.out.println("Filtre Patient : " + csvm.getPatient().getLastName());
-        }
-
-        if(csvm.getDate() != null) {
-            sql.append(" AND c.date > ?");
-            params.add(csvm.getDate());
-            System.out.println("Filtre Date : " + csvm.getDate());
-        }
-
-        ArrayList<Consultation> consultations = new ArrayList<>();
+        sql.append("WHERE c.doctor_id = ").append(csvm.getIdDoctor());
 
         System.out.println("Exécution: " + sql);
 
-        try(PreparedStatement ps = connection.getInstance().prepareStatement(sql.toString())) {
-            for(int i = 0; i < params.size(); i++) {
-                ps.setObject(i + 1, params.get(i));
-            }
+        PreparedStatement ps = connection.getInstance().prepareStatement(sql.toString());
 
-            try(ResultSet rs = ps.executeQuery()) {
-                while(rs.next()) {
-                    Patient patient = new Patient(
-                            rs.getInt("patient_id"),
-                            rs.getString("patient_last_name"),
-                            rs.getString("patient_first_name")
-                    );
+        try(ResultSet rs = ps.executeQuery()) {
+            while(rs.next()) {
+                Patient patient = new Patient(
+                        rs.getInt("patient_id"),
+                        rs.getString("patient_lastname"),
+                        rs.getString("patient_firstname")
+                );
 
-                    Doctor doctor = new Doctor(
-                            rs.getInt("doctor_id"),
-                            rs.getString("doctor_last_name"),
-                            rs.getString("doctor_first_name")
-                    );
-                    doctor.setSpecialtyId(rs.getInt("specialty_id"));
+                Doctor doctor = new Doctor(
+                        rs.getInt("doctor_id"),
+                        rs.getString("doctor_last_name"),
+                        rs.getString("doctor_first_name")
+                );
+                doctor.setSpecialtyId(rs.getInt("specialty_id"));
 
-                    Consultation cons = new Consultation(
-                            rs.getInt("id"),
-                            rs.getDate("date").toLocalDate(),
-                            rs.getTime("hour").toLocalTime(),
-                            patient,
-                            rs.getString("reason"),
-                            doctor
-                    );
+                Consultation cons = new Consultation(
+                        rs.getInt("id"),
+                        rs.getDate("date").toLocalDate(),
+                        rs.getTime("hour").toLocalTime(),
+                        patient,
+                        rs.getString("reason"),
+                        doctor
+                );
 
-                    consultations.add(cons);
-                }
+                consultations.add(cons);
             }
         }
 
-        return consultations;
+         return consultations;
     }
 }
