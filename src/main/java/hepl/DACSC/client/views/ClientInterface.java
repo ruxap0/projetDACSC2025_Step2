@@ -240,7 +240,7 @@ public class ClientInterface extends JFrame {
 
     public void setConsultations(ArrayList<Consultation> consultations) {
         this.consultations = consultations;
-        updateTable(); // Mettre à jour automatiquement le tableau
+        updateTable();
     }
 
     public int getIdDoctor() {

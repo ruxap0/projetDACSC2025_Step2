@@ -79,31 +79,32 @@ public class ConsultationDAO {
         if(csvm.getPatient() != null) {
             sql.append(" AND p.last_name = ?");
             params.add(csvm.getPatient().getLastName());
+            System.out.println("Filtre Patient : " + csvm.getPatient().getLastName());
         }
 
         if(csvm.getDate() != null) {
             sql.append(" AND c.date > ?");
             params.add(csvm.getDate());
+            System.out.println("Filtre Date : " + csvm.getDate());
         }
 
         ArrayList<Consultation> consultations = new ArrayList<>();
 
+        System.out.println("Exécution: " + sql);
+
         try(PreparedStatement ps = connection.getInstance().prepareStatement(sql.toString())) {
-            // Binding des paramètres
             for(int i = 0; i < params.size(); i++) {
                 ps.setObject(i + 1, params.get(i));
             }
 
             try(ResultSet rs = ps.executeQuery()) {
                 while(rs.next()) {
-                    // Créer le Patient
                     Patient patient = new Patient(
                             rs.getInt("patient_id"),
                             rs.getString("patient_last_name"),
                             rs.getString("patient_first_name")
                     );
 
-                    // Créer le Doctor
                     Doctor doctor = new Doctor(
                             rs.getInt("doctor_id"),
                             rs.getString("doctor_last_name"),
@@ -111,7 +112,6 @@ public class ConsultationDAO {
                     );
                     doctor.setSpecialtyId(rs.getInt("specialty_id"));
 
-                    // Créer la Consultation
                     Consultation cons = new Consultation(
                             rs.getInt("id"),
                             rs.getDate("date").toLocalDate(),
