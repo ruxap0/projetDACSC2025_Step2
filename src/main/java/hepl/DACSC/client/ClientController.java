@@ -123,6 +123,8 @@ public class ClientController implements ActionListener {
         SearchConsultationRequete reqCons= new SearchConsultationRequete();
         reqCons.setIdDoctor(clientView.getIdDoctor());
 
+        clientView.showMessage("", "Recherche des consultations");
+
         if(hasPatientFilter)
             reqCons.setPatientName(patientName);
         if(hasDateFilter)
@@ -133,7 +135,7 @@ public class ClientController implements ActionListener {
             oos.flush();
 
             SearchConsultationReponse repCons = (SearchConsultationReponse) ois.readObject();
-
+            clientView.showMessage("", "Ajout des consultations dans le tableau");
             clientView.setConsultations(repCons.getConsultations());
         } catch (IOException ex) {
             throw new RuntimeException(ex);
