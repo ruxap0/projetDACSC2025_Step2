@@ -64,6 +64,7 @@ public class ConsultationDAO {
     }
 
     public ArrayList<Consultation> getConsultations(ConsultationSearchVM csvm) throws SQLException {
+        consultations = new ArrayList<>();
         StringBuilder sql = new StringBuilder(
                 "SELECT c.*, " +
                         "p.last_name as patient_lastname, p.first_name as patient_firstname, " +
