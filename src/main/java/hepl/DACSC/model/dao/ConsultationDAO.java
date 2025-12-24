@@ -89,8 +89,8 @@ public class ConsultationDAO {
 
                 Doctor doctor = new Doctor(
                         rs.getInt("doctor_id"),
-                        rs.getString("doctor_last_name"),
-                        rs.getString("doctor_first_name")
+                        rs.getString("doctor_lastname"),
+                        rs.getString("doctor_firstname")
                 );
                 doctor.setSpecialtyId(rs.getInt("specialty_id"));
 
