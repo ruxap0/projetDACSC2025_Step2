@@ -22,7 +22,7 @@ public class ClientInterface extends JFrame {
     private String currentDoctorName;
     private String currentDoctorId;
 
-    private int idDoctor;
+    private int idDoctor = 0;
 
     private ArrayList<Consultation> consultations;
 
@@ -249,6 +249,7 @@ public class ClientInterface extends JFrame {
 
     public void setIdDoctor(int idDoctor) {
         this.idDoctor = idDoctor;
+        System.out.println("IdDoctor défini à: " + this.idDoctor);
     }
 
     public void showMessage(String erreur, String message) {

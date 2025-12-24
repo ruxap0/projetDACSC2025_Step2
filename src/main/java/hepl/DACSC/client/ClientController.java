@@ -157,6 +157,8 @@ public class ClientController implements ActionListener {
             oos.flush();
 
             LoginReponse reponse = (LoginReponse) ois.readObject();
+            System.out.println("Id du Docteur trouvé : " + reponse.getDoctorID());
+
             if (reponse.isSuccess())
             {
                 isLoggedIn = true;
