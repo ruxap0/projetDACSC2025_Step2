@@ -76,6 +76,7 @@ public class CAP implements Protocole{
         }
         else if (requete instanceof SearchConsultationRequete) {
             ConsultationSearchVM csvm = new ConsultationSearchVM();
+            csvm.setIdDoctor(((SearchConsultationRequete) requete).getIdDoctor());
             csvm.setPatient(new Patient(
                     0,
                     ((SearchConsultationRequete) requete).getPatient(),

@@ -22,6 +22,10 @@ public class SearchConsultationRequete implements Requete {
         this.idDoctor = idDoctor;
     }
 
+    public int getIdDoctor() {
+        return this.idDoctor;
+    }
+
     public void setPatientName(String name)
     {
         this.patient = name;
