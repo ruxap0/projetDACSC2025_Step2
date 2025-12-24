@@ -71,4 +71,16 @@ public class Consultation implements Entity {
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
+
+    @Override
+    public String toString() {
+        return "Consultation{" +
+                "id=" + id +
+                ", date=" + date +
+                ", time=" + time +
+                ", patient=" + patient +
+                ", reason='" + reason + '\'' +
+                ", doctor=" + doctor +
+                '}';
+    }
 }

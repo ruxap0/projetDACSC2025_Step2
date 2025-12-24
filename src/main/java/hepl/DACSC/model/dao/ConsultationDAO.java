@@ -101,7 +101,7 @@ public class ConsultationDAO {
                         rs.getString("reason"),
                         doctor
                 );
-
+                System.out.println(cons.toString());
                 consultations.add(cons);
             }
         }
