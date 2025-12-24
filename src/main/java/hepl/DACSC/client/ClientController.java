@@ -170,8 +170,6 @@ public class ClientController implements ActionListener {
                     clientView.addActionListener(this);
                     clientView.setIdDoctor(reponse.getDoctorID());
                 }
-
-                requete = null;
             }
         } catch (UnknownHostException ex) {
             throw new RuntimeException(ex);

@@ -23,7 +23,7 @@ public class DoctorDAO {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                return rs.getInt(1);
+                return rs.getInt("id");
             }
         } catch (SQLException e) {
             System.err.println("Erreur SQL:");
