@@ -94,10 +94,13 @@ public class ConsultationDAO {
                 );
                 doctor.setSpecialtyId(rs.getInt("specialty_id"));
 
+                String hourStr = rs.getString("hour");
+                LocalTime hour = LocalTime.parse(hourStr);
+
                 Consultation cons = new Consultation(
                         rs.getInt("id"),
                         rs.getDate("date").toLocalDate(),
-                        rs.getTime("hour").toLocalTime(),
+                        hour,
                         patient,
                         rs.getString("reason"),
                         doctor
