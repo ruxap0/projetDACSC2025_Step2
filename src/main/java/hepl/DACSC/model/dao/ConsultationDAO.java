@@ -79,6 +79,7 @@ public class ConsultationDAO {
         PreparedStatement ps = connection.getInstance().prepareStatement(sql.toString());
 
         try(ResultSet rs = ps.executeQuery()) {
+            System.out.println("LIGNE TROUVEE");
             while(rs.next()) {
                 Patient patient = new Patient(
                         rs.getInt("patient_id"),
@@ -104,6 +105,9 @@ public class ConsultationDAO {
                 System.out.println(cons.toString());
                 consultations.add(cons);
             }
+        }
+        catch (SQLException e) {
+            System.err.println("Erreur SQL getConsultations:");
         }
 
          return consultations;
