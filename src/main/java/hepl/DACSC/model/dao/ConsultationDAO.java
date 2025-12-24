@@ -79,8 +79,8 @@ public class ConsultationDAO {
         PreparedStatement ps = connection.getInstance().prepareStatement(sql.toString());
 
         try(ResultSet rs = ps.executeQuery()) {
-            System.out.println("LIGNE TROUVEE");
             while(rs.next()) {
+                System.out.println("LIGNE TROUVEE");
                 Patient patient = new Patient(
                         rs.getInt("patient_id"),
                         rs.getString("patient_lastname"),
