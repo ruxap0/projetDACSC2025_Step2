@@ -72,7 +72,7 @@ public class ConsultationDAO {
                         "INNER JOIN patients p ON c.patient_id = p.id " +
                         "INNER JOIN doctors d ON c.doctor_id = d.id "
         );
-        sql.append("WHERE c.doctor_id = ").append(csvm.getIdDoctor());
+        sql.append(" WHERE c.doctor_id = ").append(csvm.getIdDoctor());
 
         System.out.println("Exécution: " + sql);
 
@@ -107,7 +107,7 @@ public class ConsultationDAO {
             }
         }
         catch (SQLException e) {
-            System.err.println("Erreur SQL getConsultations:");
+            System.err.println("Erreur SQL getConsultations: " + e);
         }
 
          return consultations;
