@@ -209,5 +209,16 @@ public class UpdateInterface extends JFrame {
         return Integer.parseInt(dureeField.getText());
     }
 
+    public static void main(String[] args)
+    {
+        System.out.print("hola");
 
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                UpdateInterface updateInterface = new UpdateInterface();
+                updateInterface.setVisible(true);
+            }
+        });
+    }
 }

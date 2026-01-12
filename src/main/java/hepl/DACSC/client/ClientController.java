@@ -69,6 +69,14 @@ public class ClientController implements ActionListener {
                 break;
             case "Mettre à jour la consultation":
                 // Récupérer la consultation sélectionnée et ouvrir une vue de mise à jour
+                Consultation selectedConsultation = clientView.getSelectedConsultation();
+                if(selectedConsultation != null)
+                {
+
+                }
+                break;
+            case "Valider":
+                // Pour valider la modification
                 break;
             case "Logout":
                 if(isLoggedIn)
